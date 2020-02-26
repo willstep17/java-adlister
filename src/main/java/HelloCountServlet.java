@@ -6,21 +6,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "HelloWorldServlet", urlPatterns = "/hello")
-public class HelloWorldServlet extends HttpServlet {
+@WebServlet(name = "HelloCountServlet", urlPatterns = "/hello/count")
+public class HelloCountServlet extends HttpServlet {
     private int counter = 0;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        String name = request.getParameter("name");
-        if(name == null || name.equals("") || name.equals(" ")) {
-            out.println("<h1>Hello, World!</h1>");
-        }else if (name.equals("test")) {
-            out.println("<h1>Hello, Test (else if)</h1>");
-        } else {
-            out.println("<h1>Hello, "+ name + "!</h1>");
+        String reset = request.getParameter("reset");
+        if(reset != null) {
+            System.out.println("Counter has been reset.");
+            counter = 0;
         }
         counter += 1;
         out.println("<h1>The count is " + counter + ".</h1>");
