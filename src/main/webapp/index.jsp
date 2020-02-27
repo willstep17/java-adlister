@@ -1,14 +1,18 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<jsp:include page="partials/head.jsp"></jsp:include>
+<head>
+<jsp:include page="partials/head.jsp"/>
+</head>
 <body>
-    <jsp:include page="partials/navbar.jsp"></jsp:include>
-    <c:if test="true">
-        <h1>Variable names should be very descriptive</h1>
-    </c:if>
-    <c:if test="false">
-        <h1>single letter variable names are good</h1>
-    </c:if>
+    <jsp:include page="partials/navbar.jsp"/>
+    <main>
+        <c:if test="true">
+            <h1>Welcome to index.jsp</h1>
+        </c:if>
+        <c:if test="false">
+            <h1>single letter variable names are good</h1>
+        </c:if>
+    </main>
 </body>
 </html>

@@ -1,5 +1,33 @@
-.navbar{
+h1, h3 {
+    text-align: center;
+}
+
+form {
     display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+main {
+    background-color: salmon;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+button {
+    margin-top: 1em;
+}
+
+.form-label {
+    font-size: 22px;
+}
+
+nav {
+    display: flex;
+    background-color: black;
+    color: white;
 }
 
