@@ -6,12 +6,10 @@
 </head>
 <body>
     <h1>Ads:</h1>
-
     <c:forEach var="ad" items ="${ads}">
         <div class="ad">
-            <h2>${ad.title}</h2>
+            <h2>ID: ${ad.id} Title: ${ad.title}</h2>
             <p>Price: $ ${ad.description}</p>
-            <p>ID: ${ad.id}</p>
         </div>
     </c:forEach>
 </body>
