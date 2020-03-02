@@ -8,18 +8,31 @@ import java.io.IOException;
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        boolean user = false;
+        if(null == request.getSession().getAttribute("user")) {
+            request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
+        } else {
+            user = (boolean) request.getSession().getAttribute("user");
+        }
+
+        if(user) {
+            request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+        }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean validAttempt = username.equals("admin") && password.equals("password");
 
         if (validAttempt) {
-            response.sendRedirect("/profile");
+            request.getSession().setAttribute("user", true);
+            request.getSession().setAttribute("username", username);
+            request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
         } else {
-            response.sendRedirect("/login");
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
 }
