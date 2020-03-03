@@ -29,6 +29,8 @@ public class LoginServlet extends HttpServlet {
         if (validAttempt) {
             request.getSession().setAttribute("user", true);
             request.getSession().setAttribute("username", username);
+            request.getSession().setAttribute("loginStatus", "Log Out");
+            request.getSession().setAttribute("loginStatusAction", "/logout");
             response.sendRedirect("/profile");
         } else {
             response.sendRedirect("/login");
