@@ -1,6 +1,5 @@
 import java.sql.*;
 import com.mysql.cj.jdbc.Driver;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class MySQLAdsDao implements Ads{
 //            System.out.println(ad.getId());
 //        }
 
-        Ad testAd = new Ad(60, 3, "Django Unchained", "McDonalds");
+        Ad testAd = new Ad(60, 2, "Django Chained", "McDonalds");
         long test = testDao.insert(testAd);
 
     }
@@ -53,7 +52,8 @@ public class MySQLAdsDao implements Ads{
 
     public Long insert(Ad ad) {
         long newId = 0;
-        String insertStatement = "INSERT INTO ads(user_id, title, content) VALUES (" + ad.getUserId() + ", '" + ad.getTitle() + "', '" + ad.getDescription() + "')";
+        String insertStatement = "INSERT INTO ads(user_id, title, content) VALUES " +
+                "(" + ad.getUserId() + ", '" + ad.getTitle() + "', '" + ad.getDescription() + "')";
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(insertStatement, Statement.RETURN_GENERATED_KEYS);
