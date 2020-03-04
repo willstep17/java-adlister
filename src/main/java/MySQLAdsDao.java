@@ -22,14 +22,12 @@ public class MySQLAdsDao implements Ads{
     public static void main(String[] args) {
         Config config = new Config();
         MySQLAdsDao testDao = new MySQLAdsDao(config);
-//        List<Ad> testArray = testDao.all();
-//        for (Ad ad : testArray) {
-//            System.out.println(ad.getId());
-//        }
-
-        Ad testAd = new Ad(60, 2, "Django Chained", "McDonalds");
-        long test = testDao.insert(testAd);
-
+        List<Ad> testArray = testDao.all();
+        for (Ad ad : testArray) {
+            System.out.println(ad.getTitle());
+        }
+//        Ad testAd = new Ad(60, 2, "Django Chained", "McDonalds");
+//        long test = testDao.insert(testAd);
     }
 
     public List<Ad> all() {
@@ -51,7 +49,7 @@ public class MySQLAdsDao implements Ads{
     }
 
     public Long insert(Ad ad) {
-        long newId = 0;
+        long newId = -1;
         String insertStatement = "INSERT INTO ads(user_id, title, content) VALUES " +
                 "(" + ad.getUserId() + ", '" + ad.getTitle() + "', '" + ad.getDescription() + "')";
         try {
@@ -66,5 +64,20 @@ public class MySQLAdsDao implements Ads{
             System.out.println(sqe);
         }
         return newId;
+    }
+
+    @Override
+    public Ad retrieve(long id) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(long id) {
+        return false;
+    }
+
+    @Override
+    public boolean update(Ad ad) {
+        return false;
     }
 }
