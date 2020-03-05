@@ -22,12 +22,13 @@ public class MySQLAdsDao implements Ads{
     public static void main(String[] args) {
         Config config = new Config();
         MySQLAdsDao testDao = new MySQLAdsDao(config);
-        List<Ad> testArray = testDao.all();
-        for (Ad ad : testArray) {
-            System.out.println(ad.getTitle());
-        }
+//        List<Ad> testArray = testDao.all();
+//        for (Ad ad : testArray) {
+//            System.out.println(ad.getTitle());
+//        }
 //        Ad testAd = new Ad(60, 2, "Django Chained", "McDonalds");
 //        long test = testDao.insert(testAd);
+        System.out.println(testDao.delete(4));
     }
 
     public List<Ad> all() {
@@ -73,7 +74,15 @@ public class MySQLAdsDao implements Ads{
 
     @Override
     public boolean delete(long id) {
-        return false;
+        try {
+            Statement statement = connection.createStatement();
+            String deleteQuery = "DELETE FROM ads WHERE id = " + id;
+            int rows = statement.executeUpdate(deleteQuery);
+            return rows > 0;
+        } catch (SQLException sqe) {
+            System.out.println("Error deleting add.");
+            return false;
+        }
     }
 
     @Override
