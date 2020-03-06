@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.regex.*;
 
-@WebServlet(name = "controllers.RegisterServlet", urlPatterns = "/register")
+@WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
@@ -27,9 +26,5 @@ public class RegisterServlet extends HttpServlet {
         usersDao.insert(newUser);
         request.getSession().setAttribute("user", username);
         response.sendRedirect("/profile");
-
-        // TODO: ensure the submitted information is valid
-        // TODO: create a new user based off of the submitted information
-        // TODO: if a user was successfully created, send them to their profile
     }
 }

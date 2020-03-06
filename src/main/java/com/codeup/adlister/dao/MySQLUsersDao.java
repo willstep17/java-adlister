@@ -1,12 +1,8 @@
 package com.codeup.adlister.dao;
 
-import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 //Email regex: .+@.+\.[a-z]{3,4}
 //Password regex: ^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{6,}$
@@ -23,7 +19,6 @@ public class MySQLUsersDao implements Users {
 
 //        User secondTestUser = new User(45, "fake", "akailjkyfaeaf@faefagiafael.com", "1111111f");
 //        testDao.insert(secondTestUser);
-
     }
 
     public MySQLUsersDao(Config config) {
@@ -39,45 +34,18 @@ public class MySQLUsersDao implements Users {
         }
     }
 
-//    String sql = "SELECT * FROM products WHERE name LIKE ?";
-//    String searchTermWithWildcards = "%" + searchTerm + "%";
-//
-//    PreparedStatement stmt = connection.prepareStatement(sql);
-//    stmt.setString(1, searchTermWithWildcards);
-//
-//    ResultSet rs = stmt.executeQuery();
-//    while(rs.next()) {
-//        // do something with the search results
-//    }
-
     @Override
     public User findByUsername(String inputUsername) {
+        String sql = "SELECT * FROM users WHERE username = ? LIMIT 1";
         try {
-//            String sql = "SELECT * FROM users WHERE username LIKE ?";
-            String sql = "SELECT * FROM users WHERE username = ?";
-//            String searchTermWithWildcards = "%" + inputUsername + "%";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, inputUsername);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return extractUser(rs);
-            }
-            return null;
+            return extractUser(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error finding user.", e);
         }
     }
-
-//    String sql = "INSERT INTO products(name, category, price) VALUES (?, ?, ?)";
-//    PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-//    // For the sake of easier demonstration we are using literals here
-//    stmt.setString(1, "hammer");
-//    stmt.setString(2, "tools");
-//    stmt.setFloat(3, 19.99);
-//
-//    stmt.executeUpdate();
-//    ResultSet generatedIdResultSet = stmt.getGeneratedKeys();
 
     @Override
     public Long insert(User user) {
@@ -100,6 +68,9 @@ public class MySQLUsersDao implements Users {
     }
 
     private User extractUser(ResultSet rs) throws SQLException {
+        if (! rs.next()) {
+            return null;
+        }
         return new User(
                 rs.getLong("id"),
                 rs.getString("username"),
