@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
+import com.codeup.adlister.util.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,6 +24,14 @@ public class MySQLAdsDao implements Ads {
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
+        }
+    }
+
+    public static void main(String[] args) {
+        Ads adsDao = DaoFactory.getAdsDao();
+        List<Ad> tempAds = adsDao.all();
+        for(Ad ad : tempAds) {
+            System.out.println(ad.getTitle());
         }
     }
 
